@@ -13,18 +13,19 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/e542c88a-2dd7-45f6-8f98-a768f4dcc4b0";
+    { device = "/dev/disk/by-label/nixos";
       fsType = "ext4";
     };
 
   swapDevices =
-    [ { device = "/dev/disk/by-uuid/fa3c33dc-f722-4d04-b094-260627d31b3e"; }
+    [ { device = "/dev/disk/by-label/swap"; }
     ];
 
   nix.maxJobs = lib.mkDefault 1;
   virtualisation.virtualbox.guest.enable = true;
 
-  environment.systemPackages = with pkgs; [ curl vim ];
+  environment.systemPackages = with pkgs; [ curl vim jq ];
+
   services = {
     openssh.enable = true;
     openssh.permitRootLogin = "yes";
